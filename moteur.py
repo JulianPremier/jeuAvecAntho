@@ -1,7 +1,10 @@
 import sys, pygame
+import socket
 import os
 
-class moteur:
+
+class Moteur:
+    @staticmethod
     def run():
         pygame.init()
 
@@ -15,7 +18,7 @@ class moteur:
 
         while 1:
             for event in pygame.event.get():
-                if event.type == pygame.QUIT: 
+                if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
                     if pygame.key.get_pressed()[pygame.K_z]:
@@ -45,8 +48,37 @@ class moteur:
                     os.system("cls")
                     print("posX = ", pos_x, ";posY = ", pos_y)
 
-moteur.run()
-    
-#INTERESSANT
-#a = pygame.key.get_pressed()[pygame.K_a]
 
+class GameSocket:
+    host = ''
+    port = 4977
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    conn = None
+    addr = None
+
+    def __init__(self, new_port=None):
+        if new_port is not None:
+            self.port = new_port
+
+    def debug(self):
+        print(f'My port is {self.port}')
+
+    def connect_to_server(self):
+        try:
+            self.host = 'localhost'
+            self.sock.connect((self.host, self.port))
+            print('Connected to server.')
+        except ConnectionRefusedError or ConnectionError:
+            print('weird')
+        finally:
+            self.sock.close()
+
+
+if __name__ == '__main__':
+    socket = GameSocket()
+    socket.debug()
+    socket.connect_to_server()
+    Moteur.run()
+
+# INTERESSANT
+# a = pygame.key.get_pressed()[pygame.K_a]
