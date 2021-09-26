@@ -1,21 +1,25 @@
-import sys
-import pygame
-import socket
 import os
 import tkinter as tk
+from tkinter import *
 
 class Menu(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
-        self.pack()
+        self.master.title("MENU")
+        self.master.minsize(250, 100)
+        self.pack(fill=X)
         self.create_widgets()
 
     def create_widgets(self):
         self.skinColor = tk.Button(self)
-        self.skinColor["text"] = "skin color"
+        self.skinColor["text"] = "Skin color"
         self.skinColor["command"] = self.getNewSkinColor
-        self.skinColor.pack(side="top")
+        self.skinColor.pack(fill=X)
+
+        self.unknow = tk.Button(self)
+        self.unknow["text"] = "Unknow"
+        self.unknow.pack(fill=X)
 
     def getNewSkinColor(self):
         os.system("cls")
