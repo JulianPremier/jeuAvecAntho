@@ -50,22 +50,46 @@ class Engine:
         self.pos_x = self.pos_x + 10
         self.refresh()
 
+    def openMenu(self):
+        self.debug("open menu")
+
+    def debug(self, text):
+        os.system("cls")
+        print(text)
+
     def listenKeyboardEvent(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT: 
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if pygame.key.get_pressed()[pygame.K_z]:
+                    key = 'z'
+                elif pygame.key.get_pressed()[pygame.K_s]:
+                    key = 's'
+                elif pygame.key.get_pressed()[pygame.K_q]:
+                    key = 'q'
+                elif pygame.key.get_pressed()[pygame.K_d]:
+                    key = 'd'
+                elif pygame.key.get_pressed()[pygame.K_v]:
+                    key = 'v'
+                display = "posX = ", self.pos_x, ";posY = ", self.pos_y
+                self.debug(display)
+                return key
+
+     def run(self):
         while 1:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
-                elif event.type == pygame.KEYDOWN:
-                    if pygame.key.get_pressed()[pygame.K_z]:
-                        self.topMove()
-                    elif pygame.key.get_pressed()[pygame.K_s]:
-                        self.bottomMove()
-                    elif pygame.key.get_pressed()[pygame.K_q]:
-                        self.leftMove()
-                    elif pygame.key.get_pressed()[pygame.K_d]:
-                        self.rightMove()
-                    os.system("cls")
-                    print("posX = ", self.pos_x, ";posY = ", self.pos_y)
+            key = self.listenKeyboardEvent()
+            if key == 'z':
+                self.topMove()
+            elif key == 's':
+                self.bottomMove()
+            elif key == 'q':
+                self.leftMove()
+            elif key == 'd':
+                self.rigthMove()
+            elif key == 'v':
+                self.openMenu()
+            key = ''
 
 
 class GameSocket:
@@ -102,7 +126,7 @@ class GameSocket:
 if __name__ == '__main__':
     socket = GameSocket()
     engine = Engine(socket)
-    engine.listenKeyboardEvent()
+    engine.run()
 
 # INTERESSANT
 # a = pygame.key.get_pressed()[pygame.K_a]
