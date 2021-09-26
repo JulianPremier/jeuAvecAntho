@@ -1,3 +1,6 @@
+import sys
+import pygame
+import socket
 import os
 import tkinter as tk
 from tkinter import *
@@ -19,6 +22,7 @@ class Menu(tk.Frame):
 
         self.unknow = tk.Button(self)
         self.unknow["text"] = "Unknow"
+        self.unknow["command"] = self.doNothing
         self.unknow.pack(fill=X)
 
     def getNewSkinColor(self):
@@ -29,6 +33,9 @@ class Menu(tk.Frame):
         B = int(input("B (0 - 255) >> "))
         newColor = pygame.Color(R, G, B)
         engine.setSkinColor(newColor)
+
+    def doNothing(self):
+        print("do nothing")
 
 class Engine:
     def __init__(self, e_sock):
@@ -165,6 +172,3 @@ if __name__ == '__main__':
     socket = GameSocket()
     engine = Engine(socket)
     engine.run()
-
-# INTERESSANT
-# a = pygame.key.get_pressed()[pygame.K_a]
