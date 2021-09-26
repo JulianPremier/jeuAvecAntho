@@ -33,6 +33,7 @@ class Engine:
         except ConnectionError as err:
             print('Exception raised:', err)
 
+
     def setSkinColor(self, newColor):
         self.skinColor = newColor
         self.refresh()
@@ -111,6 +112,3 @@ if __name__ == '__main__':
     socket = GameSocket()
     engine = Engine(socket)
     engine.run()
-
-# INTERESSANT
-# a = pygame.key.get_pressed()[pygame.K_a]
