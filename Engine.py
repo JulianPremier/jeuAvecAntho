@@ -62,7 +62,7 @@ class Engine:
 
     def setSkinColor(self, newColor):
         """
-        Change skin color
+        Change skin color 
 
         :param newColor: string newColor
         :return: Void
